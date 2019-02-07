@@ -18,14 +18,14 @@
 # Boston, MA 02110-1301, USA.
 
 install(FILES
-	iio_device_source.xml iio_device_sink.xml
-	iio_fmcomms2_source.xml iio_fmcomms2_sink.xml
-	iio_fmcomms5_source.xml iio_fmcomms5_sink.xml
-	iio_pluto_source.xml iio_pluto_sink.xml
-	iio_math.xml iio_math_gen.xml iio_power_ff.xml
-	iio_modulo_ff.xml iio_modulo_const_ff.xml
-	iio_attr_sink.xml
-	iio_attr_source.xml
-	iio_attr_updater.xml
+	iio_device_source.block.yml iio_device_sink.block.yml
+	iio_fmcomms2_source.block.yml iio_fmcomms2_sink.block.yml
+	iio_fmcomms5_source.block.yml iio_fmcomms5_sink.block.yml
+	iio_pluto_source.block.yml iio_pluto_sink.block.yml
+	iio_math.block.yml iio_math_gen.block.yml iio_power_ff.block.yml
+	iio_modulo_ff.block.yml iio_modulo_const_ff.block.yml
+	iio_attr_sink.block.yml
+	iio_attr_source.block.yml
+	iio_attr_updater.block.yml
 	DESTINATION share/gnuradio/grc/blocks
 )
