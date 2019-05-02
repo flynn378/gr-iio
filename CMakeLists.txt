@@ -172,15 +172,15 @@ add_subdirectory(grc)
 ########################################################################
 # Install pkg-config file
 ########################################################################
-configure_file(
-	${CMAKE_CURRENT_SOURCE_DIR}/gnuradio-iio.pc.in
-	${CMAKE_CURRENT_BINARY_DIR}/gnuradio-iio.pc
-	@ONLY)
+#configure_file(
+#	${CMAKE_CURRENT_SOURCE_DIR}/gnuradio-iio.pc.in
+#	${CMAKE_CURRENT_BINARY_DIR}/gnuradio-iio.pc
+#	@ONLY)
 
-install(
-	FILES ${CMAKE_CURRENT_BINARY_DIR}/gnuradio-iio.pc
-	DESTINATION ${GR_LIBRARY_DIR}/pkgconfig
-)
+#install(
+#	FILES ${CMAKE_CURRENT_BINARY_DIR}/gnuradio-iio.pc
+#	DESTINATION ${GR_LIBRARY_DIR}/pkgconfig
+#)
 
 ########################################################################
 # Install cmake search helper for this library
