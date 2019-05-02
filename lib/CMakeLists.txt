@@ -88,11 +88,14 @@ endif(APPLE)
 ########################################################################
 # Install built library files
 ########################################################################
-install(TARGETS gnuradio-iio
-	LIBRARY DESTINATION ${GR_LIBRARY_DIR} # .so/.dylib file
-	ARCHIVE DESTINATION ${GR_LIBRARY_DIR} # .lib file
-	RUNTIME DESTINATION ${GR_RUNTIME_DIR} # .dll file
-)
+include(GrMiscUtils)
+GR_LIBRARY_FOO(gnuradio-iio)
+
+#install(TARGETS gnuradio-iio
+#	LIBRARY DESTINATION ${GR_LIBRARY_DIR} # .so/.dylib file
+#	ARCHIVE DESTINATION ${GR_LIBRARY_DIR} # .lib file
+#	RUNTIME DESTINATION ${GR_RUNTIME_DIR} # .dll file
+#)
 
 
 ########################################################################
