@@ -28,10 +28,10 @@ link_directories(${Boost_LIBRARY_DIRS})
 include(FindFLEX REQUIRED)
 find_package(BISON "3.0.2" REQUIRED)
 
-flex_target(lexer
+FLEX_TARGET(lexer
 	${CMAKE_CURRENT_SOURCE_DIR}/iio_math_lexer.l ${CMAKE_CURRENT_BINARY_DIR}/lexer.c)
-bison_target(parser
-	${CMAKE_CURRENT_SOURCE_DIR}/iio_math_parser.y ${CMAKE_CURRENT_BINARY_DIR}/parser.c)
+BISON_TARGET(parser
+	${CMAKE_CURRENT_SOURCE_DIR}/iio_math_parser.y ${CMAKE_CURRENT_BINARY_DIR}/parser.c DEFINES_FILE ${CMAKE_CURRENT_BINARY_DIR}/parser.h)
 
 list(APPEND iio_sources
 	device_source_impl.cc
@@ -60,21 +60,19 @@ if(NOT iio_sources)
 	return()
 endif(NOT iio_sources)
 
-if ("${PC_GNURADIO_RUNTIME_VERSION}" VERSION_LESS 3.8.0)
-	set(GR_IS_VERSION_3_7_OR_LESS ON)
-endif()
-
-option(COMPAT_GR_3_7_OR_LESS "Compile for GNU Radio version 3.7 or less" ${GR_IS_VERSION_3_7_OR_LESS})
-if (COMPAT_GR_3_7_OR_LESS)
-	add_definitions(-DGR_VERSION_3_7_OR_LESS)
-endif()
 
 add_library(gnuradio-iio SHARED ${iio_sources})
-target_link_libraries(gnuradio-iio
+target_link_libraries(gnuradio-iio gnuradio::gnuradio-runtime gnuradio::gnuradio-pmt
+    gnuradio::gnuradio-filter
 	${Boost_LIBRARIES}
 	${IIO_LIBRARIES}
-	${AD9361_LIBRARIES}
-	${GNURADIO_ALL_LIBRARIES})
+	${AD9361_LIBRARIES})
+	
+target_include_directories(gnuradio-iio
+    PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../include>
+    PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}/>
+    PUBLIC $<INSTALL_INTERFACE:include>
+  )
 set_target_properties(gnuradio-iio PROPERTIES
 	VERSION ${GR_IIO_VERSION}
 	SOVERSION ${GR_IIO_VERSION_MAJOR}
