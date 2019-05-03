@@ -90,14 +90,46 @@ endif(APPLE)
 ########################################################################
 #include(GrMiscUtils)
 #GR_LIBRARY_FOO(gnuradio-iio)
-include (GNUInstallDirs)
+#include (GNUInstallDirs)
 
-install(TARGETS gnuradio-iio
-	LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR} # .so/.dylib file
-	ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR} # .lib file
-	RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR} # .dll file
+#install(TARGETS gnuradio-iio
+#	LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR} # .so/.dylib file
+#	ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR} # .lib file
+#	RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR} # .dll file
+#)
+include(GrMiscUtils)
+GR_LIBRARY_FOO(gnuradio-iio)
+
+########################################################################
+# Print summary
+########################################################################
+message(STATUS "Using install prefix: ${CMAKE_INSTALL_PREFIX}")
+message(STATUS "Building for version: ${VERSION} / ${LIBVER}")
+
+
+########################################################################
+# Build and register unit test
+########################################################################
+include(GrTest)
+
+# If your unit tests require special include paths, add them here
+#include_directories()
+# List all files that contain Boost.UTF unit tests here
+list(APPEND test_iio38_sources
 )
+# Anything we need to link to for the unit tests go here
+list(APPEND GR_TEST_TARGET_DEPS gnuradio-iio38)
 
+if(NOT test_iio38_sources)
+    MESSAGE(STATUS "No C++ unit tests... skipping")
+    return()
+endif(NOT test_iio38_sources)
+
+foreach(qa_file ${test_iio38_sources})
+    GR_ADD_CPP_TEST("iio38_${qa_file}"
+        ${CMAKE_CURRENT_SOURCE_DIR}/${qa_file}
+    )
+endforeach(qa_file)
 
 ########################################################################
 # Setup the include and linker paths
