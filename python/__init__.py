@@ -23,7 +23,7 @@ This is the GNU Radio IIO module. Place your Python package
 description here (python/__init__.py).
 '''
 
-import os
+from __future__ import unicode_literals
 
 try:
     from .iio_swig import *
