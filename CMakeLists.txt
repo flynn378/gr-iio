@@ -146,6 +146,16 @@ else(DOXYGEN_FOUND)
 endif(DOXYGEN_FOUND)
 
 ########################################################################
+# Setup the include and linker paths
+########################################################################
+
+
+
+# Set component parameters
+set(GR_HH_IIO_INCLUDE_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/include CACHE INTERNAL "" FORCE)
+set(GR_HH_IIO_SWIG_INCLUDE_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/swig CACHE INTERNAL "" FORCE)
+
+########################################################################
 # Create uninstall target
 ########################################################################
 configure_file(
